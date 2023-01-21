@@ -13,9 +13,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "Reapr Main TeleOP")
+@TeleOp(name = "Reapr TeleOP 2D")
 
-public class Reapr_Main_TeleOP extends LinearOpMode {
+public class Reapr_TeleOP2D extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Declare our motors
@@ -112,15 +112,15 @@ public class Reapr_Main_TeleOP extends LinearOpMode {
 
 
             if (gamepad2.a){ // Move down
-                elevatorMotorLeft.setPower(0.5);
-                elevatorMotorRight.setPower(-0.5);
+                elevatorMotorLeft.setPower(0.9);
+                elevatorMotorRight.setPower(-0.9);
             }
             elevatorMotorLeft.setPower(0);
             elevatorMotorRight.setPower(0);
 
             if (gamepad2.y){ // Move up
-                elevatorMotorLeft.setPower(-0.7);
-                elevatorMotorRight.setPower(0.7);
+                elevatorMotorLeft.setPower(-0.9);
+                elevatorMotorRight.setPower(0.9);
             }
             elevatorMotorLeft.setPower(0);
             elevatorMotorRight.setPower(0);
