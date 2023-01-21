@@ -31,6 +31,13 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import java.util.List;
 import java.util.ArrayList;
 
 @TeleOp
@@ -54,6 +61,11 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
     double tagsize = 0.166;
 
     int ID_TAG_OF_INTEREST = 18; // Tag ID 18 from the 36h11 family
+    int CONFIG1 = 1; // Tag ID 1 from the 36h11 family
+    int CONFIG2 = 10; // Tag ID 10 from the 36h11 family
+    int CONFIG3 = 19; // Tag ID 19 from the 36h11 family
+
+    int tagnum = 0; //default tag number (will be changed later when a signal is detected)
 
     AprilTagDetection tagOfInterest = null;
 
@@ -96,10 +108,25 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
 
                 for(AprilTagDetection tag : currentDetections)
                 {
-                    if(tag.id == ID_TAG_OF_INTEREST)
+                    if(tag.id == CONFIG1)
                     {
                         tagOfInterest = tag;
                         tagFound = true;
+                        tagnum = 1;
+                        break;
+                    }
+                    else if(tag.id == CONFIG2)
+                    {
+                        tagOfInterest = tag;
+                        tagFound = true;
+                        tagnum = 10;
+                        break;
+                    }
+                    else if(tag.id == CONFIG3)
+                    {
+                        tagOfInterest = tag;
+                        tagFound = true;
+                        tagnum = 19;
                         break;
                     }
                 }
@@ -167,8 +194,7 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
         if(tagOfInterest == null)
         {
             /*
-             * Insert your autonomous code here, presumably running some default configuration
-             * since the tag was never sighted during INIT
+             * EMERGENCY SITUATION IF SLEEVE DOESN'T WORK
              */
         }
         else
@@ -178,17 +204,17 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
              */
 
             // e.g.
-            if(tagOfInterest.pose.x <= 20)
+            if(tagnum == 1)
             {
-                // do something
+                // GO FORWARD 1.5 TILE + LEFT 1 TILE
             }
-            else if(tagOfInterest.pose.x >= 20 && tagOfInterest.pose.x <= 50)
+            else if(tagnum == 10)
             {
-                // do something else
+                // GO FORWARD 1.5 TILE
             }
-            else if(tagOfInterest.pose.x >= 50)
+            else if(tagnum == 19)
             {
-                // do something else
+                // GO FORWARD 1.5 TILE + RIGHT 1 TILE
             }
         }
 
