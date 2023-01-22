@@ -43,9 +43,9 @@ import java.util.List;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Reapr Final Auto")
+@Autonomous(name="Failsafe Park (2)")
 
-public class Reapr_Auto extends LinearOpMode {
+public class Reapr_Failsafe extends LinearOpMode {
     private DcMotor motorFrontLeft = null; //Declares stuff ON ROBOT
     private DcMotor motorBackLeft = null;
     private DcMotor motorFrontRight = null;
