@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -10,6 +10,23 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+
+import java.util.List;
 
 @Autonomous(name = "Auto Park (TFOD)")
 
@@ -68,31 +85,30 @@ public class Reapr_Auto_Park  extends LinearOpMode {
 
 
         if (opModeIsActive()) {
-            while (opModeIsActive()) {
-                if (tfod != null) { // Make sure the model is loaded
-                    // getUpdatedRecognitions() will return null if no new information is available since the last time that call was made.
-                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                    
-                    if (updatedRecognitions != null) {
-                        telemetry.addData("# Objects Detected", updatedRecognitions.size());
+            if (tfod != null) { // Make sure the model is loaded
+                // getUpdatedRecognitions() will return null if no new information is available since the last time that call was made.
+                List<Recognition> updatedRecognitions = tfod.getRecognitions();
 
-                        // step through the list of recognitions and display image position/size information for each one
-                        // Note: "Image number" refers to the randomized image orientation/number
-                        for (Recognition recognition : updatedRecognitions) {
-                            double col = (recognition.getLeft() + recognition.getRight()) / 2 ;
-                            double row = (recognition.getTop()  + recognition.getBottom()) / 2 ;
-                            double width  = Math.abs(recognition.getRight() - recognition.getLeft()) ;
-                            double height = Math.abs(recognition.getTop()  - recognition.getBottom()) ;
+                if (updatedRecognitions != null) {
+                    telemetry.addData("# Objects Detected", updatedRecognitions.size());
 
-                            telemetry.addData(""," ");
-                            telemetry.addData("Image", "%s (%.0f %% Conf.)", recognition.getLabel(), recognition.getConfidence() * 100 );
-                            telemetry.addData("- Position (Row/Col)","%.0f / %.0f", row, col);
-                            telemetry.addData("- Size (Width/Height)","%.0f / %.0f", width, height);
-                        }
-                        telemetry.update();
+                    // step through the list of recognitions and display image position/size information for each one
+                    // Note: "Image number" refers to the randomized image orientation/number
+                    for (Recognition recognition : updatedRecognitions) {
+                        double col = (recognition.getLeft() + recognition.getRight()) / 2 ;
+                        double row = (recognition.getTop()  + recognition.getBottom()) / 2 ;
+                        double width  = Math.abs(recognition.getRight() - recognition.getLeft()) ;
+                        double height = Math.abs(recognition.getTop()  - recognition.getBottom()) ;
+
+                        telemetry.addData(""," ");
+                        telemetry.addData("Image", "%s (%.0f %% Conf.)", recognition.getLabel(), recognition.getConfidence() * 100 );
+                        telemetry.addData("- Position (Row/Col)","%.0f / %.0f", row, col);
+                        telemetry.addData("- Size (Width/Height)","%.0f / %.0f", width, height);
                     }
+                    telemetry.update();
                 }
             }
+
         }
     }
 

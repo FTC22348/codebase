@@ -5,7 +5,7 @@ https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
 This is the main teleop file, with servos (for claws) and dc motors (for the elevator system)
 */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -112,15 +112,15 @@ public class Reapr_Main_TeleOP extends LinearOpMode {
 
 
             if (gamepad1.a){ // Move down
-                elevatorMotorLeft.setPower(0.5);
-                elevatorMotorRight.setPower(-0.5);
+                elevatorMotorLeft.setPower(1);
+                elevatorMotorRight.setPower(-1);
             }
             elevatorMotorLeft.setPower(0);
             elevatorMotorRight.setPower(0);
 
             if (gamepad1.y){ // Move up
-                elevatorMotorLeft.setPower(-0.7);
-                elevatorMotorRight.setPower(0.7);
+                elevatorMotorLeft.setPower(-1);
+                elevatorMotorRight.setPower(1);
             }
             elevatorMotorLeft.setPower(0);
             elevatorMotorRight.setPower(0);
