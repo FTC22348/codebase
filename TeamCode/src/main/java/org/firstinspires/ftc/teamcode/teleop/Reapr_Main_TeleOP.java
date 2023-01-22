@@ -13,9 +13,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "Reapr TeleOP 2D")
+@TeleOp(name = "TeleOP")
 
-public class Reapr_TeleOP2D extends LinearOpMode {
+public class Reapr_Main_TeleOP extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Declare our motors
@@ -96,9 +96,9 @@ public class Reapr_TeleOP2D extends LinearOpMode {
             
             // Servo Controls
 
-            if (gamepad2.b) // Down
+            if (gamepad1.b) // Down
                 clawPosition += clawSpeed;
-            else if (gamepad2.x) // Up
+            else if (gamepad1.x) // Up
                 clawPosition -= clawSpeed;
 
             clawPosition = Range.clip(clawPosition, clawMinRange, clawMaxRange);
@@ -111,16 +111,16 @@ public class Reapr_TeleOP2D extends LinearOpMode {
             // Elevator Controls
 
 
-            if (gamepad2.a){ // Move down
-                elevatorMotorLeft.setPower(0.9);
-                elevatorMotorRight.setPower(-0.9);
+            if (gamepad1.a){ // Move down
+                elevatorMotorLeft.setPower(0.5);
+                elevatorMotorRight.setPower(-0.5);
             }
             elevatorMotorLeft.setPower(0);
             elevatorMotorRight.setPower(0);
 
-            if (gamepad2.y){ // Move up
-                elevatorMotorLeft.setPower(-0.9);
-                elevatorMotorRight.setPower(0.9);
+            if (gamepad1.y){ // Move up
+                elevatorMotorLeft.setPower(-0.7);
+                elevatorMotorRight.setPower(0.7);
             }
             elevatorMotorLeft.setPower(0);
             elevatorMotorRight.setPower(0);
