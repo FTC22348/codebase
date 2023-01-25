@@ -214,6 +214,10 @@ public class Reapr_Auto_Park extends LinearOpMode {
                         telemetry.addData("- Position (Row/Col)","%.0f / %.0f", row, col);
                         telemetry.addData("- Size (Width/Height)","%.0f / %.0f", width, height);
 
+                        encoderDrive(DRIVE_SPEED,  -14,  -14, -14, -14, 200.0);  // 200 second timeout, no need for it yet
+                        encoderDrive(DRIVE_SPEED,  -14,  -14, -14, -14, 200.0);  // 200 second timeout, no need for it yet
+
+
 
                         if(recognition.getLabel()=="0 Red"){
                             encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
@@ -228,12 +232,9 @@ public class Reapr_Auto_Park extends LinearOpMode {
                         }
                     }
                     telemetry.update();
-                }else{
-                    encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
-                    encoderDrive(DRIVE_SPEED,  -20,  20, 20, -20, 200.0);  // 200 second timeout, no need for it yet
                 }
             }
-            
+
         }
     }
 
@@ -338,7 +339,7 @@ public class Reapr_Auto_Park extends LinearOpMode {
      */
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-            "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfodParameters.minResultConfidence = 0.70f;
         tfodParameters.isModelTensorFlow2 = true;
