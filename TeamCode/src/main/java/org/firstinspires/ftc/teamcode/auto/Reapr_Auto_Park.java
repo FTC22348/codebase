@@ -207,30 +207,37 @@ public class Reapr_Auto_Park extends LinearOpMode {
                     }
                     // step through the list of recognitions and display image position/size information for each one
                     // Note: "Image number" refers to the randomized image orientation/number
+                    
+                    int counter=0;
                     for (Recognition recognition : updatedRecognitions) {
-                        double col = (recognition.getLeft() + recognition.getRight()) / 2 ;
-                        double row = (recognition.getTop()  + recognition.getBottom()) / 2 ;
-                        double width  = Math.abs(recognition.getRight() - recognition.getLeft()) ;
-                        double height = Math.abs(recognition.getTop()  - recognition.getBottom()) ;
-
-                        telemetry.addData(""," ");
-                        telemetry.addData("Image", "%s (%.0f %% Conf.)", recognition.getLabel(), recognition.getConfidence() * 100 );
-                        telemetry.addData("- Position (Row/Col)","%.0f / %.0f", row, col);
-                        telemetry.addData("- Size (Width/Height)","%.0f / %.0f", width, height);
-                        
-
-
-                        if(recognition.getLabel()=="0 Red"){
-                            encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
-                            encoderDrive(DRIVE_SPEED,  18,  -18, -18, 18, 200.0);  // 200 second timeout, no need for it yet
-
-                        }else if(recognition.getLabel()=="1 Green"){
-                            encoderDrive(DRIVE_SPEED,  -22,  -22, -22, -22, 200.0);  // 200 second timeout, no need for it yet
-
-                        }else{ // Blue
-                            encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
-                            encoderDrive(DRIVE_SPEED,  -18,  18, 18, -18, 200.0);  // 200 second timeout, no need for it yet
+                        if(counter==0){
+                            counter++;
+                            
+                            double col = (recognition.getLeft() + recognition.getRight()) / 2 ;
+                            double row = (recognition.getTop()  + recognition.getBottom()) / 2 ;
+                            double width  = Math.abs(recognition.getRight() - recognition.getLeft()) ;
+                            double height = Math.abs(recognition.getTop()  - recognition.getBottom()) ;
+                            
+                            telemetry.addData(""," ");
+                            telemetry.addData("Image", "%s (%.0f %% Conf.)", recognition.getLabel(), recognition.getConfidence() * 100 );
+                            telemetry.addData("- Position (Row/Col)","%.0f / %.0f", row, col);
+                            telemetry.addData("- Size (Width/Height)","%.0f / %.0f", width, height);
+                            
+                            
+                            
+                            if(recognition.getLabel()=="0 Red"){
+                                encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
+                                encoderDrive(DRIVE_SPEED,  18,  -18, -18, 18, 200.0);  // 200 second timeout, no need for it yet
+                            
+                            }else if(recognition.getLabel()=="1 Green"){
+                                encoderDrive(DRIVE_SPEED,  -22,  -22, -22, -22, 200.0);  // 200 second timeout, no need for it yet
+                            
+                            }else{ // Blue
+                                encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
+                                encoderDrive(DRIVE_SPEED,  -18,  18, 18, -18, 200.0);  // 200 second timeout, no need for it yet
+                            }
                         }
+                        
                     }
                     telemetry.update();
                 }else{
