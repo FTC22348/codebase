@@ -64,7 +64,7 @@ public class Reapr_TeleOP2D extends LinearOpMode {
                 dividePower=1.0;
             }
 
-            if(gamepad1.left_stick_button){
+            if(gamepad1.right_stick_button){
                 if(isSlowMode){
                     isSlowMode=false;
                     sleep(500);
