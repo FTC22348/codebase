@@ -151,7 +151,7 @@ public class Reapr_Auto_Park extends LinearOpMode {
             // to artificially zoom in to the center of image.  For best results, the "aspectRatio" argument
             // should be set to the value of the images used to create the TensorFlow Object Detection model
             // (typically 16/9).
-            tfod.setZoom(1.0, 16.0/9.0);
+            tfod.setZoom(1.2, 16.0/9.0);
         }
 
         // Meccanum Drivetrain
@@ -201,37 +201,53 @@ public class Reapr_Auto_Park extends LinearOpMode {
                 if (updatedRecognitions != null) {
                     telemetry.addData("# Objects Detected", updatedRecognitions.size());
 
+                    if(updatedRecognitions.size()==0){
+                        encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
+                        encoderDrive(DRIVE_SPEED,  -18,  18, 18, -18, 200.0);  // 200 second timeout, no need for it yet
+                    }
                     // step through the list of recognitions and display image position/size information for each one
                     // Note: "Image number" refers to the randomized image orientation/number
+                    
+                    int counter=0;
                     for (Recognition recognition : updatedRecognitions) {
-                        double col = (recognition.getLeft() + recognition.getRight()) / 2 ;
-                        double row = (recognition.getTop()  + recognition.getBottom()) / 2 ;
-                        double width  = Math.abs(recognition.getRight() - recognition.getLeft()) ;
-                        double height = Math.abs(recognition.getTop()  - recognition.getBottom()) ;
-
-                        telemetry.addData(""," ");
-                        telemetry.addData("Image", "%s (%.0f %% Conf.)", recognition.getLabel(), recognition.getConfidence() * 100 );
-                        telemetry.addData("- Position (Row/Col)","%.0f / %.0f", row, col);
-                        telemetry.addData("- Size (Width/Height)","%.0f / %.0f", width, height);
-
-
-                        if(recognition.getLabel()=="0 Red"){
-                            encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
-                            encoderDrive(DRIVE_SPEED,  20,  -20, -20, 20, 200.0);  // 200 second timeout, no need for it yet
-
-                        }else if(recognition.getLabel()=="1 Green"){
-                            encoderDrive(DRIVE_SPEED,  -22,  -22, -22, -22, 200.0);  // 200 second timeout, no need for it yet
-
-                        }else{ // Blue
-                            encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
-                            encoderDrive(DRIVE_SPEED,  -20,  20, 20, -20, 200.0);  // 200 second timeout, no need for it yet
+                        if(counter==0){
+                            counter++;
+                            
+                            double col = (recognition.getLeft() + recognition.getRight()) / 2 ;
+                            double row = (recognition.getTop()  + recognition.getBottom()) / 2 ;
+                            double width  = Math.abs(recognition.getRight() - recognition.getLeft()) ;
+                            double height = Math.abs(recognition.getTop()  - recognition.getBottom()) ;
+                            
+                            telemetry.addData(""," ");
+                            telemetry.addData("Image", "%s (%.0f %% Conf.)", recognition.getLabel(), recognition.getConfidence() * 100 );
+                            telemetry.addData("- Position (Row/Col)","%.0f / %.0f", row, col);
+                            telemetry.addData("- Size (Width/Height)","%.0f / %.0f", width, height);
+                            
+                            
+                            
+                            if(recognition.getLabel()=="0 Red"){
+                                encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
+                                encoderDrive(DRIVE_SPEED,  18,  -18, -18, 18, 200.0);  // 200 second timeout, no need for it yet
+                            
+                            }else if(recognition.getLabel()=="1 Green"){
+                                encoderDrive(DRIVE_SPEED,  -22,  -22, -22, -22, 200.0);  // 200 second timeout, no need for it yet
+                            
+                            }else{ // Blue
+                                encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
+                                encoderDrive(DRIVE_SPEED,  -18,  18, 18, -18, 200.0);  // 200 second timeout, no need for it yet
+                            }
                         }
+                        
                     }
                     telemetry.update();
                 }else{
                     encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
-                    encoderDrive(DRIVE_SPEED,  -20,  20, 20, -20, 200.0);  // 200 second timeout, no need for it yet
+                    encoderDrive(DRIVE_SPEED,  -18,  18, 18, -18, 200.0);  // 200 second timeout, no need for it yet
+                    sleep(5000);
                 }
+            }else{
+                encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
+                encoderDrive(DRIVE_SPEED,  -18,  18, 18, -18, 200.0);  // 200 second timeout, no need for it yet
             }
             
         }
