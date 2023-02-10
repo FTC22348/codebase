@@ -55,6 +55,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
+
 import java.util.List;
 
 
@@ -133,6 +134,15 @@ public class Reapr_Auto_Park extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        // Claw Motors (Servo)
+        Servo claw = hardwareMap.servo.get("reaprClaw");// name of server on control hub is reaprClaw
+        // On port: 
+        double clawPosition = 0.0;
+        final double clawSpeed = 0.05;// change to 100th when button is hold
+        final double clawMinRange = 0.0;
+        final double clawMaxRange = 0.55;
+
+
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();
@@ -201,9 +211,11 @@ public class Reapr_Auto_Park extends LinearOpMode {
                 if (updatedRecognitions != null) {
                     telemetry.addData("# Objects Detected", updatedRecognitions.size());
 
-                    if(updatedRecognitions.size()==0){
+                    if(updatedRecognitions.size()==0){ // Blue
                         encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
                         encoderDrive(DRIVE_SPEED,  -18,  18, 18, -18, 200.0);  // 200 second timeout, no need for it yet
+                        encoderDrive(DRIVE_SPEED,  -4,  -4, -4, -4, 200.0);  // 200 second timeout, no need for it yet
+
                     }
                     // step through the list of recognitions and display image position/size information for each one
                     // Note: "Image number" refers to the randomized image orientation/number
@@ -228,6 +240,7 @@ public class Reapr_Auto_Park extends LinearOpMode {
                             if(recognition.getLabel()=="0 Red"){
                                 encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
                                 encoderDrive(DRIVE_SPEED,  18,  -18, -18, 18, 200.0);  // 200 second timeout, no need for it yet
+                                encoderDrive(DRIVE_SPEED,  -4,  -4, -4, -4, 200.0);  // 200 second timeout, no need for it yet
                             
                             }else if(recognition.getLabel()=="1 Green"){
                                 encoderDrive(DRIVE_SPEED,  -22,  -22, -22, -22, 200.0);  // 200 second timeout, no need for it yet
@@ -235,6 +248,7 @@ public class Reapr_Auto_Park extends LinearOpMode {
                             }else{ // Blue
                                 encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
                                 encoderDrive(DRIVE_SPEED,  -18,  18, 18, -18, 200.0);  // 200 second timeout, no need for it yet
+                                encoderDrive(DRIVE_SPEED,  -4,  -4, -4, -4, 200.0);  // 200 second timeout, no need for it yet
                             }
                         }
                         
@@ -243,11 +257,13 @@ public class Reapr_Auto_Park extends LinearOpMode {
                 }else{
                     encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
                     encoderDrive(DRIVE_SPEED,  -18,  18, 18, -18, 200.0);  // 200 second timeout, no need for it yet
-                    sleep(5000);
+                    encoderDrive(DRIVE_SPEED,  -4,  -4, -4, -4, 200.0);  // 200 second timeout, no need for it yet
                 }
             }else{
                 encoderDrive(DRIVE_SPEED,  -16,  -16, -16, -16, 200.0);  // 200 second timeout, no need for it yet
                 encoderDrive(DRIVE_SPEED,  -18,  18, 18, -18, 200.0);  // 200 second timeout, no need for it yet
+                encoderDrive(DRIVE_SPEED,  -4,  -4, -4, -4, 200.0);  // 200 second timeout, no need for it yet
+
             }
             
         }
